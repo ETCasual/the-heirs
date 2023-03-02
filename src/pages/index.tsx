@@ -42,15 +42,16 @@ const Home: NextPage = () => {
               onSubmit={async (values, actions) => {
                 setLoading(true);
                 const id = uuid();
+                const now = Date.now();
                 if (!values.name || !values.cg || !values.msg) {
                   alert("必须填写每一个格子");
                   setLoading(false);
                   throw new Error("必须填写每一个格子");
                 }
-                await set(ref(dbRef, `${id}`), {
+                await set(ref(dbRef, `${now}`), {
                   ...values,
                   id: id,
-                  createdAt: Date.now(),
+                  createdAt: now,
                 }).then(() => {
                   setLoading(false);
                   alert("成功!");
