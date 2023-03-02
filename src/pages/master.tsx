@@ -33,6 +33,8 @@ const Master: NextPage = () => {
                 key={post.id}
                 msg={post.msg}
                 id={post.id}
+                number={1}
+                onMounted={(el) => el.scrollIntoView({ behavior: "smooth" })}
               />
             ))}
       </div>

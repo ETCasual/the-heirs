@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import type { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import type { Post } from "~/pages/live";
 
 const generatePastelColor = (seed: string): string => {
@@ -57,22 +57,31 @@ const generatePastelColor = (seed: string): string => {
   return color;
 };
 
-export const Card: FunctionComponent<Post & { onClick?: () => void }> = ({
-  cg,
-  id,
-  msg,
-  name,
-  onClick,
-  approved,
-}) => {
-  const color = generatePastelColor(name);
-  const color2 = generatePastelColor(cg);
-  const color3 = generatePastelColor(id);
-  const color4 = generatePastelColor(msg);
+export const Card: FunctionComponent<
+  Post & { number: number } & { onMounted: (el: Element) => void } & {
+    onClick?: () => void;
+  }
+> = ({ cg, id, msg, name, number, onClick, approved }) => {
+  const [color, setColor] = useState("");
+  const [color2, setColor2] = useState("");
+  const [color3, setColor3] = useState("");
+  const [color4, setColor4] = useState("");
+
+  useEffect(() => {
+    setColor(generatePastelColor(name));
+    setColor2(generatePastelColor(cg));
+    setColor3(generatePastelColor(id));
+    setColor4(generatePastelColor(msg));
+  }, [cg, id, msg, name]);
+
   return (
     <div
+      id={id}
+      data-aos="fade-up"
       style={{ background: `linear-gradient(225deg, #${color4}, #${color3})` }}
-      className="flex w-[600px] flex-col gap-3 rounded-xl p-5 shadow-xl"
+      className={`flex w-[1000px] flex-col gap-3 rounded-xl p-5 shadow-xl ${
+        number % 2 === 1 ? "self-start" : "self-end "
+      }`}
     >
       <div className="h-full rounded-xl bg-white p-5">
         <div className="h mb-2 flex flex-row items-center gap-5">
