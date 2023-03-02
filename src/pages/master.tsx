@@ -1,18 +1,10 @@
-import { ref } from "firebase/database";
-import { type NextPage } from "next";
+import type { NextPage } from "next";
 import { useDatabase, useDatabaseObjectData } from "reactfire";
+import type { Post } from "./live";
+import { ref, set } from "firebase/database";
 import { Card } from "~/components/Card";
 
-export type Post = {
-  msg: string;
-  name: string;
-  cg: string;
-  approved: boolean;
-  id: string;
-  createdAt: EpochTimeStamp;
-};
-
-const Live: NextPage = () => {
+const Master: NextPage = () => {
   const db = useDatabase();
   const dbRef = ref(db);
 
@@ -23,10 +15,17 @@ const Live: NextPage = () => {
       <div className="my-10 flex w-full flex-col items-center justify-center gap-5">
         {data &&
           Object.values(data)
-            .filter((p) => p && p.id && p.approved)
+            .filter((p) => p && p.id && !p.approved)
             .sort((a, b) => a.createdAt - b.createdAt)
             .map((post) => (
               <Card
+                onClick={() =>
+                  void set(ref(db, `${post.createdAt}`), {
+                    ...post,
+                    approved: true,
+                    createdAt: Date.now(),
+                  })
+                }
                 approved={post.approved}
                 cg={post.cg}
                 createdAt={post.createdAt}
@@ -40,4 +39,5 @@ const Live: NextPage = () => {
     </main>
   );
 };
-export default Live;
+
+export default Master;

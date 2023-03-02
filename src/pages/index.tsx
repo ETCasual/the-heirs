@@ -51,6 +51,7 @@ const Home: NextPage = () => {
                 await set(ref(dbRef, `${now}`), {
                   ...values,
                   id: id,
+                  approved: false,
                   createdAt: now,
                 }).then(() => {
                   setLoading(false);

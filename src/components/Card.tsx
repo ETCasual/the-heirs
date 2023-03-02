@@ -57,7 +57,14 @@ const generatePastelColor = (seed: string): string => {
   return color;
 };
 
-export const Card: FunctionComponent<Post> = ({ cg, id, msg, name }) => {
+export const Card: FunctionComponent<Post & { onClick?: () => void }> = ({
+  cg,
+  id,
+  msg,
+  name,
+  onClick,
+  approved,
+}) => {
   const color = generatePastelColor(name);
   const color2 = generatePastelColor(cg);
   const color3 = generatePastelColor(id);
@@ -81,6 +88,14 @@ export const Card: FunctionComponent<Post> = ({ cg, id, msg, name }) => {
         </div>
         <p className="h-full w-full  text-xl font-bold">{msg}</p>
       </div>
+      {!approved && (
+        <button
+          className="text-md mb-2 w-full rounded-lg bg-green-400 py-2 capitalize text-white"
+          onClick={onClick}
+        >
+          Approve
+        </button>
+      )}
     </div>
   );
 };
