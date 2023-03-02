@@ -2,6 +2,8 @@ import { ref } from "firebase/database";
 import { type NextPage } from "next";
 import { useDatabase, useDatabaseObjectData } from "reactfire";
 import { Card } from "~/components/Card";
+import * as aos from "aos";
+import "aos/dist/aos.css";
 
 export type Post = {
   msg: string;
@@ -13,6 +15,11 @@ export type Post = {
 };
 
 const Live: NextPage = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+  aos.init({
+    duration: 1000,
+    easing: "ease-in-out",
+  });
   const db = useDatabase();
   const dbRef = ref(db);
 

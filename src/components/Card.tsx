@@ -75,7 +75,7 @@ export const Card: FunctionComponent<Post & { onClick?: () => void }> = ({
       className="flex w-[600px] flex-col gap-3 rounded-xl p-5 shadow-xl"
     >
       <div className="h-full rounded-xl bg-white p-5">
-        <div className="h mb-2 flex flex-row items-center gap-3">
+        <div className="h mb-2 flex flex-row items-center gap-5">
           <img
             className="h-[70px] w-[70px] rounded-full"
             alt="open-peeps"
