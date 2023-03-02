@@ -80,7 +80,7 @@ export const Card: FunctionComponent<
       data-aos="fade-up"
       style={{ background: `linear-gradient(225deg, #${color4}, #${color3})` }}
       className={`flex w-[1000px] flex-col gap-3 rounded-xl p-5 shadow-xl ${
-        number % 2 === 1 ? "self-start" : "self-end "
+        number % 2 === 1 ? "self-start" : "self-end"
       }`}
     >
       <div className="h-full rounded-xl bg-white p-5">
