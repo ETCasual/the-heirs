@@ -1,6 +1,5 @@
 import { ref } from "firebase/database";
 import { type NextPage } from "next";
-import { useEffect, useState } from "react";
 import { useDatabase, useDatabaseObjectData } from "reactfire";
 import { Card } from "~/components/Card";
 
@@ -9,14 +8,9 @@ export type Post = {
   name: string;
   cg: string;
   id: string;
+  createdAt: EpochTimeStamp;
 };
 
-const exampleData = {
-  msg: "Test",
-  name: "Lengzai",
-  cg: "79S",
-  id: 1,
-};
 const Live: NextPage = () => {
   const db = useDatabase();
   const dbRef = ref(db);
@@ -25,18 +19,22 @@ const Live: NextPage = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-      {data &&
-        Object.values(data)
-          .filter((p) => p && p.id)
-          .map((post) => (
-            <Card
-              cg={post.cg}
-              name={post.name}
-              key={post.id}
-              msg={post.msg}
-              id={post.id}
-            />
-          ))}
+      <div className="my-10 flex w-full flex-col items-center justify-center gap-5">
+        {data &&
+          Object.values(data)
+            .filter((p) => p && p.id)
+            .sort((a, b) => a.createdAt - b.createdAt)
+            .map((post) => (
+              <Card
+                cg={post.cg}
+                createdAt={post.createdAt}
+                name={post.name}
+                key={post.id}
+                msg={post.msg}
+                id={post.id}
+              />
+            ))}
+      </div>
     </main>
   );
 };

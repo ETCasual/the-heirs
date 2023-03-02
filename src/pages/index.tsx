@@ -47,13 +47,15 @@ const Home: NextPage = () => {
                   setLoading(false);
                   throw new Error("必须填写每一个格子");
                 }
-                await set(ref(dbRef, `${id}`), { ...values, id: id }).then(
-                  () => {
-                    setLoading(false);
-                    alert("成功!");
-                    actions.resetForm();
-                  }
-                );
+                await set(ref(dbRef, `${id}`), {
+                  ...values,
+                  id: id,
+                  createdAt: Date.now(),
+                }).then(() => {
+                  setLoading(false);
+                  alert("成功!");
+                  actions.resetForm();
+                });
               }}
             >
               {({ errors }) => (

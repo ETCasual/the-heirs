@@ -65,7 +65,7 @@ export const Card: FunctionComponent<Post> = ({ cg, id, msg, name }) => {
   return (
     <div
       style={{ background: `linear-gradient(225deg, #${color4}, #${color3})` }}
-      className="mb-10 flex w-[600px] flex-col gap-3 rounded-xl  p-5 shadow-xl"
+      className="flex w-[600px] flex-col gap-3 rounded-xl p-5 shadow-xl"
     >
       <div className="h-full rounded-xl bg-white p-5">
         <div className="h mb-2 flex flex-row items-center gap-3">
@@ -79,7 +79,7 @@ export const Card: FunctionComponent<Post> = ({ cg, id, msg, name }) => {
             <p>{cg}</p>
           </div>
         </div>
-        <div className="h-full w-full  text-xl font-bold">{msg}</div>
+        <p className="h-full w-full  text-xl font-bold">{msg}</p>
       </div>
     </div>
   );
