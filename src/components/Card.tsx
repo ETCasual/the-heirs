@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { FunctionComponent, useEffect, useState } from "react";
+import { type FunctionComponent, useEffect, useState } from "react";
 import type { Post } from "~/pages/live";
 
 const generatePastelColor = (seed: string): string => {
@@ -57,17 +57,6 @@ const generatePastelColor = (seed: string): string => {
   return color;
 };
 
-const generateReturnString = (seedString: string) => {
-  const vowels = ["a", "e", "i", "o", "u"];
-  const firstLetter = seedString.charAt(1).toLowerCase();
-
-  if (vowels.includes(firstLetter)) {
-    return "From";
-  } else {
-    return "-";
-  }
-};
-
 export const Card: FunctionComponent<
   Post & { number: number } & { onMounted: (el: Element) => void } & {
     onClick?: () => void;
@@ -106,7 +95,7 @@ export const Card: FunctionComponent<
             <p>{cg}</p>
           </div>
         </div>
-        <p className="h-full w-full  text-xl font-bold">{msg}</p>
+        <p className="h-full w-full overflow-hidden text-xl font-bold">{msg}</p>
       </div>
       {!approved && (
         <button
