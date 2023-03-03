@@ -4,7 +4,7 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        merged: ["Airstrike", "sans-serif"],
+        merged: ["HYDaBaiTuW-2", "sans-serif"],
       },
       screens: {
         "3xl": "2300px",

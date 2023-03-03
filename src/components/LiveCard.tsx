@@ -96,8 +96,8 @@ export const LiveCard: FunctionComponent<
         <p className="w-full overflow-hidden text-6xl  leading-tight tracking-wider">
           {msg}
         </p>
-        <div className="item-center flex flex-row justify-end">
-          <p className="my-auto mr-5 text-4xl font-bold tracking-wider">{`${generateReturnString(
+        <div className="item-center mt-5 flex flex-row justify-end">
+          <p className="my-auto mr-5 text-4xl tracking-wider">{`${generateReturnString(
             name
           )} ${name} | ${cg}`}</p>
           <img
