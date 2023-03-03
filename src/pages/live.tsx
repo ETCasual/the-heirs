@@ -40,7 +40,9 @@ const Live: NextPage = () => {
     );
     if (newData.length > prevDataLength) {
       void animateScrollTo(
-        document.getElementById(newData[newData.length - 1]?.id),
+        document.getElementById(
+          newData[newData.length - 1]?.id as string
+        ) as Element,
         {
           easing: (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
           verticalOffset: 30,
