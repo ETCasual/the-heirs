@@ -2,10 +2,11 @@
 import { ref } from "firebase/database";
 import { type NextPage } from "next";
 import { useDatabase, useDatabaseObjectData } from "reactfire";
-import { Card } from "~/components/Card";
+import { LiveCard } from "~/components/LiveCard";
 import * as aos from "aos";
 import "aos/dist/aos.css";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
+import animateScrollTo from "animated-scroll-to";
 
 export type Post = {
   msg: string;
@@ -29,29 +30,50 @@ const Live: NextPage = () => {
 
   const { data } = useDatabaseObjectData<Record<string, Post>>(dbRef);
 
+  const containerRef = useRef(null);
+  const prevDataLengthRef = useRef(0);
+
+  useEffect(() => {
+    const prevDataLength = prevDataLengthRef.current;
+    const newData = Object.values(data || {}).filter(
+      (p) => p && p.id && p.approved
+    );
+    if (newData.length > prevDataLength) {
+      void animateScrollTo(
+        document.getElementById(newData[newData.length - 1]?.id),
+        {
+          easing: (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
+          verticalOffset: 30,
+        }
+      );
+    }
+    prevDataLengthRef.current = newData.length;
+  }, [data]);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-      <div className="scroll-container my-10 flex w-full flex-col items-center gap-10 p-20">
-        {data &&
-          Object.values(data)
-            .filter((p) => p && p.id && p.approved)
-            .sort((a, b) => a.createdAt - b.createdAt)
-            .map((post, i) => (
-              <Card
-                number={i}
-                approved={post.approved}
-                cg={post.cg}
-                createdAt={post.createdAt}
-                name={post.name}
-                key={post.id}
-                msg={post.msg}
-                id={post.id}
-                onMounted={(el) => {
-                  el.scrollIntoView({ behavior: "smooth" });
-                }}
-              />
-            ))}
-      </div>
+    <main
+      ref={containerRef}
+      className="flex flex-col items-center justify-center gap-5 bg-cover bg-fixed bg-center p-10"
+    >
+      {data &&
+        Object.values(data)
+          .filter((p) => p && p.id && p.approved)
+          .sort((a, b) => a.createdAt - b.createdAt)
+          .map((post, i) => (
+            <LiveCard
+              number={i}
+              approved={post.approved}
+              cg={post.cg}
+              createdAt={post.createdAt}
+              name={post.name}
+              key={post.id}
+              msg={post.msg}
+              id={post.id}
+              onMounted={(el) => {
+                el.scrollIntoView({ behavior: "smooth" });
+              }}
+            />
+          ))}
     </main>
   );
 };

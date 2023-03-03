@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { FunctionComponent, useEffect, useState } from "react";
+import { type FunctionComponent, useEffect, useState } from "react";
 import type { Post } from "~/pages/live";
 
 const generatePastelColor = (seed: string): string => {
@@ -62,13 +62,13 @@ const generateReturnString = (seedString: string) => {
   const firstLetter = seedString.charAt(1).toLowerCase();
 
   if (vowels.includes(firstLetter)) {
-    return "From";
+    return "From : ";
   } else {
     return "-";
   }
 };
 
-export const Card: FunctionComponent<
+export const LiveCard: FunctionComponent<
   Post & { number: number } & { onMounted: (el: Element) => void } & {
     onClick?: () => void;
   }
@@ -76,38 +76,38 @@ export const Card: FunctionComponent<
   const [color, setColor] = useState("");
   const [color2, setColor2] = useState("");
   const [color3, setColor3] = useState("");
-  const [color4, setColor4] = useState("");
 
   useEffect(() => {
     setColor(generatePastelColor(name));
     setColor2(generatePastelColor(cg));
     setColor3(generatePastelColor(id));
-    setColor4(generatePastelColor(msg));
-  }, [cg, id, msg, name]);
+  }, [cg, id, name]);
 
   return (
     <div
       id={id}
       data-aos="fade-up"
-      style={{ background: `linear-gradient(225deg, #${color4}, #${color3})` }}
-      className={`flex w-full flex-col gap-3 rounded-xl p-5 shadow-xl ${
+      className={`flex w-[950px] flex-col gap-3 rounded-xl border-2 border-white p-5 ${
         number % 2 === 1 ? "self-start" : "self-end"
       }`}
     >
-      <div className="h-full rounded-xl bg-white p-5">
-        <div className="h mb-2 flex flex-row items-center gap-5">
+      <div className="h-full rounded-xl p-2 font-merged text-white">
+        <div className="h mb-2 flex flex-row items-center gap-5"></div>
+        <p className="w-full overflow-hidden text-6xl  leading-tight tracking-wider">
+          {msg}
+        </p>
+        <div className="item-center flex flex-row justify-end">
+          <p className="my-auto mr-5 text-4xl font-bold tracking-wider">{`${generateReturnString(
+            name
+          )} ${name} | ${cg}`}</p>
           <img
-            className="h-[70px] w-[70px] rounded-full"
+            className="h-[50px] w-[50px] rounded-full"
             alt="open-peeps"
             src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${name}&backgroundColor=${color},${color2},${color3}&backgroundType=gradientLinear&backgroundRotation=135`}
           />
-          <div>
-            <p className="text-lg font-bold">{name}</p>
-            <p>{cg}</p>
-          </div>
         </div>
-        <p className="h-full w-full  text-xl font-bold">{msg}</p>
       </div>
+
       {!approved && (
         <button
           className="text-md mb-2 w-full rounded-lg bg-green-400 py-2 capitalize text-white"

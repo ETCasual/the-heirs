@@ -5,11 +5,17 @@
 html {
   overflow-x: hidden;
   /* Hide scrollbar for Chrome, Safari and Opera */
-
+  background: url("/websitebg.webp");
+  background-attachment: fixed;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
 
 html::-webkit-scrollbar {
   display: none;
+}
+
+@font-face {
+  font-family: Airstrike;
+  src: url("/Airstrike.ttf");
 }
