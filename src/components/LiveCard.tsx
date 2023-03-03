@@ -87,7 +87,7 @@ export const LiveCard: FunctionComponent<
     <div
       id={id}
       data-aos="fade-up"
-      className={`flex w-[1300px] flex-col gap-3 rounded-xl border-2 border-white p-5 3xl:w-[1700px] ${
+      className={`flex max-w-[1300px] flex-col gap-3 rounded-xl border-2 border-white p-5 3xl:max-w-[1700px] ${
         number % 2 === 1 ? "self-start" : "self-end"
       }`}
     >
