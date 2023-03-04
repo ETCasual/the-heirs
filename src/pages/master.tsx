@@ -14,7 +14,7 @@ const Master: NextPage = () => {
     <main className="grid grid-cols-1 items-center justify-center gap-5 p-5 lg:grid-cols-2">
       {data &&
         Object.values(data)
-          .filter((p) => p && p.id && !p.approved)
+          .filter((p) => p && p.id)
           .sort((a, b) => a.createdAt - b.createdAt)
           .map((post) => (
             <Card
