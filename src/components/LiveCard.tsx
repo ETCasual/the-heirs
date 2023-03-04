@@ -107,15 +107,6 @@ export const LiveCard: FunctionComponent<
           />
         </div>
       </div>
-
-      {!approved && (
-        <button
-          className="text-md mb-2 w-full rounded-lg bg-green-400 py-2 capitalize text-white"
-          onClick={onClick}
-        >
-          Approve
-        </button>
-      )}
     </div>
   );
 };

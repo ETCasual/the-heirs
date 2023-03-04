@@ -97,19 +97,12 @@ export const Card: FunctionComponent<
         </div>
         <p className="h-full w-full overflow-hidden text-xl font-bold">{msg}</p>
       </div>
-      {!approved ? (
+      {!approved && (
         <button
           className="text-md mb-2 w-full rounded-lg bg-green-400 py-2 capitalize text-white"
           onClick={onClick}
         >
           Approve
-        </button>
-      ) : (
-        <button
-          className="text-md mb-2 w-full rounded-lg bg-red-400 py-2 capitalize text-white"
-          onClick={onClick}
-        >
-          Reapprove
         </button>
       )}
     </div>
